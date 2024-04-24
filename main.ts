@@ -1432,7 +1432,6 @@ let death: Sprite = null
 let mySprite3: Sprite = null
 let box2: Sprite = null
 let ssiwoha: Sprite = null
-let skeleton: Sprite = null
 let statusbar: StatusBarSprite = null
 let mySprite: Sprite = null
 let mySprite4: Sprite = null
@@ -1441,6 +1440,7 @@ let isDoubleJump = false
 let isRight = 0
 let currentSelectedBox: tiles.Location = null
 let selectedBox: tiles.Location = null
+let skeleton: Sprite = null
 enum PlayerStatus{
     Normal = 0,
     Pulling = 1,
