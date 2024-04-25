@@ -391,22 +391,22 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         SetPulling()
     } else if (playerStatus == PlayerStatus.Holding) {
         mySprite.setImage(img`
-            bbbbbbbbbbbbbbb...22......
-            ccccccccccccccb..282......
-            cbbbbbbbbbbbbcb22888222...
-            cbccccccccccbcb2988889622.
-            cbcbbbbbbbbcbcb26888868662
-            cbcbccccccbcbcb26688668862
-            cbcbcbbbbcbcbcb28666688852
-            cbcbcbbbbcbcbcb28888888552
-            cbcbcbbbbcbcbcb2bbb2b88552
-            cbcbcbbbbcbcbcb2bcc2188552
-            cbcbccccccbcbcb2cccccc882.
-            cbcbbbbbbbbcbcb.299995882.
-            cbccccccccccbcb.28bb928882
-            cbbbbbbbbbbbbcb28888922882
-            ccccccccccccccb22288892882
-            bbbbbbbbbbbbbbb.222222.222
+            2222222222222222...99......
+            2cccccccccccccc2..989......
+            2cbbbbbbbbbbbbc299888999...
+            2cbccccccccccbc29988889699.
+            2cbcbbbbbbbbcbc286888868669
+            2cbcbccccccbcbc286688668869
+            2cbcbcbbbbcbcbc28866668885.
+            2cbcbcbbbbcbcbc28888888855.
+            2cbcbcbbbbcbcbc25bbb2b8855.
+            2cbcbcbbbbcbcbc25bcc218855.
+            2cbcbccccccbcbc25cccccc88..
+            2cbcbbbbbbbbcbc2.59999588..
+            2cbccccccccccbc2.58bb92888.
+            2cbbbbbbbbbbbbc298888922888
+            2cccccccccccccc299888899888
+            2222222222222222.ffffff.288
             `)
     } else {
         mySprite.setImage(img`
@@ -428,9 +428,6 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
             . . . . . f f f f f f . . 8 8 8 
             `)
     }
-})
-controller.combos.attachCombo("=right a", function () {
-	
 })
 statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
     mySprite4.setImage(img`
@@ -669,9 +666,6 @@ statusbars.onZero(StatusBarKind.Health, function (status) {
         game.gameOver(false)
     })
 })
-controller.combos.attachCombo("left a", function () {
-	
-})
 sprites.onOverlap(SpriteKind.attack, SpriteKind.Enemy, function (sprite, otherSprite) {
     death = sprites.create(img`
         . . . . . . . . . . . . . . . . 
@@ -814,22 +808,22 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         SetPulling()
     } else if (playerStatus == PlayerStatus.Holding) {
         mySprite.setImage(img`
-            ......22...bbbbbbbbbbbbbbb
-            ......282..bcccccccccccccc
-            ...22288822bcbbbbbbbbbbbbc
-            .2269888892bcbccccccccccbc
-            26686888862bcbcbbbbbbbbcbc
-            26886688662bcbcbccccccbcbc
-            25888666682bcbcbcbbbbcbcbc
-            25588888882bcbcbcbbbbcbcbc
-            25588b2bbb2bcbcbcbbbbcbcbc
-            2558812ccb2bcbcbcbbbbcbcbc
-            .288cccccc2bcbcbccccccbcbc
-            .288599992.bcbcbbbbbbbbcbc
-            288829bb82.bcbccccccccccbc
-            28822988882bcbbbbbbbbbbbbc
-            28829888222bcccccccccccccc
-            222.222222.bbbbbbbbbbbbbbb
+            ......999..2222222222222222
+            ......9899.2cccccccccccccc2
+            ...999888992cbbbbbbbbbbbbc2
+            .99698888992cbccccccccccbc2
+            966868888682cbcbbbbbbbbcbc2
+            968866886682cbcbccccccbcbc2
+            .58886666882cbcbcbbbbcbcbc2
+            .55888888882cbcbcbbbbcbcbc2
+            .5588b2bbb52cbcbcbbbbcbcbc2
+            .558812ccb52cbcbcbbbbcbcbc2
+            ..88cccccc52cbcbccccccbcbc2
+            ..8859999552cbcbbbbbbbbcbc2
+            .88829bb8552cbccccccccccbc2
+            888229888892cbbbbbbbbbbbbc2
+            888998888992cccccccccccccc2
+            88..fffffff2222222222222222
             `)
     } else {
         mySprite.setImage(img`
@@ -854,64 +848,244 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.enemybullet, function (sprite, otherSprite) {
     statusbar.value += -3
-    animation.runImageAnimation(
-    sprite,
-    [img`
-        . . . . . . . 9 9 . . . . . . . 
-        . . . . . . . 9 8 9 . . . . . . 
-        . . . . 9 9 9 8 8 8 9 9 . . . . 
-        . . 9 9 6 9 8 8 8 8 9 9 9 9 . . 
-        . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
-        . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
-        . . 5 8 8 8 6 6 6 6 8 8 8 9 . . 
-        . . 5 5 8 8 8 8 8 8 8 8 5 . . . 
-        . . 5 5 8 8 b 2 b b b 5 . . . . 
-        . . 5 5 8 8 1 2 c c b 5 . . . . 
-        . . . 8 8 c c c c c c 5 . . . . 
-        . . . 8 8 5 9 9 9 9 5 . . . . . 
-        . . 8 8 8 2 9 b b 8 5 . . . . . 
-        . 8 8 8 2 2 9 8 8 8 8 9 . . . . 
-        . 8 8 8 9 9 8 8 8 8 9 9 . . . . 
-        8 8 8 . . f f f f f f . . . . . 
-        `,img`
-        . . . . . . . 1 1 . . . . . . . 
-        . . . . . . . 1 1 1 . . . . . . 
-        . . . . 1 1 1 1 1 1 1 1 . . . . 
-        . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
-        . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
-        . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
-        . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
-        . . 1 1 1 1 1 1 1 1 1 1 1 . . . 
-        . . 1 1 1 1 1 1 1 1 1 1 . . . . 
-        . . 1 1 1 1 1 1 1 1 1 1 . . . . 
-        . . . 1 1 1 1 1 1 1 1 1 . . . . 
-        . . . 1 1 1 1 1 1 1 1 . . . . . 
-        . . 1 1 1 1 1 1 1 1 1 . . . . . 
-        . 1 1 1 1 1 1 1 1 1 1 1 . . . . 
-        . 1 1 1 1 1 1 1 1 1 1 1 . . . . 
-        1 1 1 . . 1 1 1 1 1 1 . . . . . 
-        `,img`
-        . . . . . . . 9 9 . . . . . . . 
-        . . . . . . . 9 8 9 . . . . . . 
-        . . . . 9 9 9 8 8 8 9 9 . . . . 
-        . . 9 9 6 9 8 8 8 8 9 9 9 9 . . 
-        . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
-        . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
-        . . 5 8 8 8 6 6 6 6 8 8 8 9 . . 
-        . . 5 5 8 8 8 8 8 8 8 8 5 . . . 
-        . . 5 5 8 8 b 2 b b b 5 . . . . 
-        . . 5 5 8 8 1 2 c c b 5 . . . . 
-        . . . 8 8 c c c c c c 5 . . . . 
-        . . . 8 8 5 9 9 9 9 5 . . . . . 
-        . . 8 8 8 2 9 b b 8 5 . . . . . 
-        . 8 8 8 2 2 9 8 8 8 8 9 . . . . 
-        . 8 8 8 9 9 8 8 8 8 9 9 . . . . 
-        8 8 8 . . f f f f f f . . . . . 
-        `],
-    200,
-    false
-    )
     sprites.destroy(otherSprite)
+    if (playerStatus == PlayerStatus.Holding) {
+        if (isRight == 1) {
+            animation.runImageAnimation(
+            sprite,
+            [img`
+                ......999..2222222222222222
+                ......9899.2cccccccccccccc2
+                ...999888992cbbbbbbbbbbbbc2
+                .99698888992cbccccccccccbc2
+                966868888682cbcbbbbbbbbcbc2
+                968866886682cbcbccccccbcbc2
+                .58886666882cbcbcbbbbcbcbc2
+                .55888888882cbcbcbbbbcbcbc2
+                .5588b2bbb52cbcbcbbbbcbcbc2
+                .558812ccb52cbcbcbbbbcbcbc2
+                ..88cccccc52cbcbccccccbcbc2
+                ..8859999552cbcbbbbbbbbcbc2
+                .88829bb8552cbccccccccccbc2
+                888229888892cbbbbbbbbbbbbc2
+                888998888992cccccccccccccc2
+                88..fffffff2222222222222222
+                `,img`
+                ......111..2222222222222222
+                ......1111.2cccccccccccccc2
+                ...111111112cbbbbbbbbbbbbc2
+                .11111111112cbccccccccccbc2
+                111111111112cbcbbbbbbbbcbc2
+                111111111112cbcbccccccbcbc2
+                111111111112cbcbcbbbbcbcbc2
+                111111111112cbcbcbbbbcbcbc2
+                111111211112cbcbcbbbbcbcbc2
+                111111211112cbcbcbbbbcbcbc2
+                .11111111112cbcbccccccbcbc2
+                .11111111112cbcbbbbbbbbcbc2
+                111111111112cbccccccccccbc2
+                111111111112cbbbbbbbbbbbbc2
+                111111111112cccccccccccccc2
+                111.111111f2222222222222222
+                `,img`
+                ......999..2222222222222222
+                ......9899.2cccccccccccccc2
+                ...999888992cbbbbbbbbbbbbc2
+                .99698888992cbccccccccccbc2
+                966868888682cbcbbbbbbbbcbc2
+                968866886682cbcbccccccbcbc2
+                .58886666882cbcbcbbbbcbcbc2
+                .55888888882cbcbcbbbbcbcbc2
+                .5588b2bbb52cbcbcbbbbcbcbc2
+                .558812ccb52cbcbcbbbbcbcbc2
+                ..88cccccc52cbcbccccccbcbc2
+                ..8859999552cbcbbbbbbbbcbc2
+                .88829bb8552cbccccccccccbc2
+                888229888892cbbbbbbbbbbbbc2
+                888998888992cccccccccccccc2
+                88..fffffff2222222222222222
+                `],
+            200,
+            false
+            )
+        } else {
+            animation.runImageAnimation(
+            sprite,
+            [img`
+                2222222222222222..999......
+                2cccccccccccccc2.9989......
+                2cbbbbbbbbbbbbc299888999...
+                2cbccccccccccbc29988889699.
+                2cbcbbbbbbbbcbc286888868669
+                2cbcbccccccbcbc286688668869
+                2cbcbcbbbbcbcbc28866668885.
+                2cbcbcbbbbcbcbc28888888855.
+                2cbcbcbbbbcbcbc25bbb2b8855.
+                2cbcbcbbbbcbcbc25bcc218855.
+                2cbcbccccccbcbc25cccccc88..
+                2cbcbbbbbbbbcbc2559999588..
+                2cbccccccccccbc2558bb92888.
+                2cbbbbbbbbbbbbc298888922888
+                2cccccccccccccc299888899888
+                2222222222222222fffffff.288
+                `,img`
+                2222222222222222..111......
+                2cccccccccccccc2.1111......
+                2cbbbbbbbbbbbbc211111111...
+                2cbccccccccccbc21111111111.
+                2cbcbbbbbbbbcbc211111111111
+                2cbcbccccccbcbc211111111111
+                2cbcbcbbbbcbcbc211111111111
+                2cbcbcbbbbcbcbc211111111111
+                2cbcbcbbbbcbcbc211112111111
+                2cbcbcbbbbcbcbc211112111111
+                2cbcbccccccbcbc21111111111.
+                2cbcbbbbbbbbcbc21111111111.
+                2cbccccccccccbc211111111111
+                2cbbbbbbbbbbbbc211111111111
+                2cccccccccccccc211111111111
+                2222222222222222f111111.111
+                `,img`
+                2222222222222222..999......
+                2cccccccccccccc2.9989......
+                2cbbbbbbbbbbbbc299888999...
+                2cbccccccccccbc29988889699.
+                2cbcbbbbbbbbcbc286888868669
+                2cbcbccccccbcbc286688668869
+                2cbcbcbbbbcbcbc28866668885.
+                2cbcbcbbbbcbcbc28888888855.
+                2cbcbcbbbbcbcbc25bbb2b8855.
+                2cbcbcbbbbcbcbc25bcc218855.
+                2cbcbccccccbcbc25cccccc88..
+                2cbcbbbbbbbbcbc2559999588..
+                2cbccccccccccbc2558bb92888.
+                2cbbbbbbbbbbbbc298888922888
+                2cccccccccccccc299888899888
+                2222222222222222fffffff.288
+                `],
+            200,
+            false
+            )
+        }
+    } else {
+        if (isRight == 1) {
+            animation.runImageAnimation(
+            sprite,
+            [img`
+                . . . . . . . 9 9 . . . . . . . 
+                . . . . . . . 9 8 9 . . . . . . 
+                . . . . 9 9 9 8 8 8 9 9 . . . . 
+                . . 9 9 6 9 8 8 8 8 9 9 9 9 . . 
+                . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
+                . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
+                . . 5 8 8 8 6 6 6 6 8 8 8 9 . . 
+                . . 5 5 8 8 8 8 8 8 8 8 5 . . . 
+                . . 5 5 8 8 b 2 b b b 5 . . . . 
+                . . 5 5 8 8 1 2 c c b 5 . . . . 
+                . . . 8 8 c c c c c c 5 . . . . 
+                . . . 8 8 5 9 9 9 9 5 . . . . . 
+                . . 8 8 8 2 9 b b 8 5 . . . . . 
+                . 8 8 8 2 2 9 8 8 8 8 9 . . . . 
+                . 8 8 8 9 9 8 8 8 8 9 9 . . . . 
+                8 8 8 . . f f f f f f . . . . . 
+                `,img`
+                . . . . . . . 1 1 . . . . . . . 
+                . . . . . . . 1 1 1 . . . . . . 
+                . . . . 1 1 1 1 1 1 1 1 . . . . 
+                . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+                . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
+                . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
+                . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+                . . 1 1 1 1 1 1 1 1 1 1 1 . . . 
+                . . 1 1 1 1 1 1 1 1 1 1 . . . . 
+                . . 1 1 1 1 1 1 1 1 1 1 . . . . 
+                . . . 1 1 1 1 1 1 1 1 1 . . . . 
+                . . . 1 1 1 1 1 1 1 1 . . . . . 
+                . . 1 1 1 1 1 1 1 1 1 . . . . . 
+                . 1 1 1 1 1 1 1 1 1 1 1 . . . . 
+                . 1 1 1 1 1 1 1 1 1 1 1 . . . . 
+                1 1 1 . . 1 1 1 1 1 1 . . . . . 
+                `,img`
+                . . . . . . . 9 9 . . . . . . . 
+                . . . . . . . 9 8 9 . . . . . . 
+                . . . . 9 9 9 8 8 8 9 9 . . . . 
+                . . 9 9 6 9 8 8 8 8 9 9 9 9 . . 
+                . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
+                . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
+                . . 5 8 8 8 6 6 6 6 8 8 8 9 . . 
+                . . 5 5 8 8 8 8 8 8 8 8 5 . . . 
+                . . 5 5 8 8 b 2 b b b 5 . . . . 
+                . . 5 5 8 8 1 2 c c b 5 . . . . 
+                . . . 8 8 c c c c c c 5 . . . . 
+                . . . 8 8 5 9 9 9 9 5 . . . . . 
+                . . 8 8 8 2 9 b b 8 5 . . . . . 
+                . 8 8 8 2 2 9 8 8 8 8 9 . . . . 
+                . 8 8 8 9 9 8 8 8 8 9 9 . . . . 
+                8 8 8 . . f f f f f f . . . . . 
+                `],
+            200,
+            false
+            )
+        } else {
+            animation.runImageAnimation(
+            sprite,
+            [img`
+                . . . . . . . 9 9 . . . . . . . 
+                . . . . . . 9 8 9 . . . . . . . 
+                . . . . 9 9 8 8 8 9 9 9 . . . . 
+                . . 9 9 9 9 8 8 8 8 9 6 9 9 . . 
+                . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
+                . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
+                . . 9 8 8 8 6 6 6 6 8 8 8 5 . . 
+                . . . 5 8 8 8 8 8 8 8 8 5 5 . . 
+                . . . . 5 b b b 2 b 8 8 5 5 . . 
+                . . . . 5 b c c 2 1 8 8 5 5 . . 
+                . . . . 5 c c c c c c 8 8 . . . 
+                . . . . . 5 9 9 9 9 5 8 8 . . . 
+                . . . . . 5 8 b b 9 2 8 8 8 . . 
+                . . . . 9 8 8 8 8 9 2 2 8 8 8 . 
+                . . . . 9 9 8 8 8 8 9 9 8 8 8 . 
+                . . . . . f f f f f f . . 8 8 8 
+                `,img`
+                . . . . . . . 1 1 . . . . . . . 
+                . . . . . . 1 1 1 . . . . . . . 
+                . . . . 1 1 1 1 1 1 1 1 . . . . 
+                . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+                . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
+                . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
+                . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+                . . . 1 1 1 1 1 1 1 1 1 1 1 . . 
+                . . . . 1 1 1 1 1 1 1 1 1 1 . . 
+                . . . . 1 1 1 1 1 1 1 1 1 1 . . 
+                . . . . 1 1 1 1 1 1 1 1 1 . . . 
+                . . . . . 1 1 1 1 1 1 1 1 . . . 
+                . . . . . 1 1 1 1 1 1 1 1 1 . . 
+                . . . . 1 1 1 1 1 1 1 1 1 1 1 . 
+                . . . . 1 1 1 1 1 1 1 1 1 1 1 . 
+                . . . . . 1 1 1 1 1 1 . . 1 1 1 
+                `,img`
+                . . . . . . . 9 9 . . . . . . . 
+                . . . . . . 9 8 9 . . . . . . . 
+                . . . . 9 9 8 8 8 9 9 9 . . . . 
+                . . 9 9 9 9 8 8 8 8 9 6 9 9 . . 
+                . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
+                . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
+                . . 9 8 8 8 6 6 6 6 8 8 8 5 . . 
+                . . . 5 8 8 8 8 8 8 8 8 5 5 . . 
+                . . . . 5 b b b 2 b 8 8 5 5 . . 
+                . . . . 5 b c c 2 1 8 8 5 5 . . 
+                . . . . 5 c c c c c c 8 8 . . . 
+                . . . . . 5 9 9 9 9 5 8 8 . . . 
+                . . . . . 5 8 b b 9 2 8 8 8 . . 
+                . . . . 9 8 8 8 8 9 2 2 8 8 8 . 
+                . . . . 9 9 8 8 8 8 9 9 8 8 8 . 
+                . . . . . f f f f f f . . 8 8 8 
+                `],
+            200,
+            false
+            )
+        }
+    }
 })
 sprites.onOverlap(SpriteKind.royund, SpriteKind.Enemy, function (sprite, otherSprite) {
     statusbar2 = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
@@ -1008,41 +1182,41 @@ sprites.onOverlap(SpriteKind.box, SpriteKind.Player, function (sprite, otherSpri
     sprites.destroy(sprite)
     if (isRight == 1) {
         mySprite.setImage(img`
-            ......99...bbbbbbbbbbbbbbb
-            ......989..bcccccccccccccc
-            ...99988899bcbbbbbbbbbbbbc
-            .9969888899bcbccccccccccbc
-            96686888868bcbcbbbbbbbbcbc
-            96886688668bcbcbccccccbcbc
-            .5888666688bcbcbcbbbbcbcbc
-            .5588888888bcbcbcbbbbcbcbc
-            .5588b2bbb5bcbcbcbbbbcbcbc
-            .558812ccb5bcbcbcbbbbcbcbc
-            ..88cccccc5bcbcbccccccbcbc
-            ..88599995.bcbcbbbbbbbbcbc
-            .88829bb85.bcbccccccccccbc
-            88822988889bcbbbbbbbbbbbbc
-            88899888899bcccccccccccccc
-            88..ffffff.bbbbbbbbbbbbbbb
+            ......99...2222222222222222
+            ......989..2cccccccccccccc2
+            ...999888992cbbbbbbbbbbbbc2
+            .99698888992cbccccccccccbc2
+            966868888682cbcbbbbbbbbcbc2
+            968866886682cbcbccccccbcbc2
+            .58886666882cbcbcbbbbcbcbc2
+            .55888888882cbcbcbbbbcbcbc2
+            .5588b2bbb52cbcbcbbbbcbcbc2
+            .558812ccb52cbcbcbbbbcbcbc2
+            ..88cccccc52cbcbccccccbcbc2
+            ..88599995.2cbcbbbbbbbbcbc2
+            .88829bb85.2cbccccccccccbc2
+            888229888892cbbbbbbbbbbbbc2
+            888998888992cccccccccccccc2
+            88..ffffff.2222222222222222
             `)
     } else {
         mySprite.setImage(img`
-            bbbbbbbbbbbbbbb...99......
-            ccccccccccccccb..989......
-            cbbbbbbbbbbbbcb99888999...
-            cbccccccccccbcb9988889699.
-            cbcbbbbbbbbcbcb86888868669
-            cbcbccccccbcbcb86688668869
-            cbcbcbbbbcbcbcb8866668885.
-            cbcbcbbbbcbcbcb8888888855.
-            cbcbcbbbbcbcbcb5bbb2b8855.
-            cbcbcbbbbcbcbcb5bcc218855.
-            cbcbccccccbcbcb5cccccc88..
-            cbcbbbbbbbbcbcb.59999588..
-            cbccccccccccbcb.58bb92888.
-            cbbbbbbbbbbbbcb98888922888
-            ccccccccccccccb99888899888
-            bbbbbbbbbbbbbbb.ffffff..88
+            2222222222222222...99......
+            2cccccccccccccc2..989......
+            2cbbbbbbbbbbbbc299888999...
+            2cbccccccccccbc29988889699.
+            2cbcbbbbbbbbcbc286888868669
+            2cbcbccccccbcbc286688668869
+            2cbcbcbbbbcbcbc28866668885.
+            2cbcbcbbbbcbcbc28888888855.
+            2cbcbcbbbbcbcbc25bbb2b8855.
+            2cbcbcbbbbcbcbc25bcc218855.
+            2cbcbccccccbcbc25cccccc88..
+            2cbcbbbbbbbbcbc2.59999588..
+            2cbccccccccccbc2.58bb92888.
+            2cbbbbbbbbbbbbc298888922888
+            2cccccccccccccc299888899888
+            2222222222222222.ffffff..88
             `)
     }
     SetHolding()
