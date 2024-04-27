@@ -10,6 +10,9 @@ namespace SpriteKind {
     export const boss = SpriteKind.create()
     export const laser = SpriteKind.create()
 }
+controller.combos.attachCombo("left left", function () {
+    Dash()
+})
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
         mySprite.vy = -180
@@ -95,6 +98,9 @@ pullEffect.setImage(img`
         `)
     animation.stopAnimation(animation.AnimationTypes.All, pullEffect)
 }
+controller.combos.attachCombo("right right", function () {
+    Dash()
+})
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (playerStatus == PlayerStatus.Normal) {
         SetPulling()
@@ -471,9 +477,31 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+controller.right.onEvent(ControllerButtonEvent.Repeated, function () {
+    mySprite.vx = moveSpeed
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     isRight = -1
+    mySprite.vx = -100
     if (playerStatus == PlayerStatus.Pulling) {
+        mySprite.setImage(img`
+            . . . . . . . 9 9 . . . . . . . 
+            . . . . . . 9 8 9 . . . . . . . 
+            . . . . 9 9 8 8 8 9 9 9 . . . . 
+            . . 9 9 9 9 8 8 8 8 9 6 9 9 . . 
+            . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
+            . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
+            . . 9 8 8 8 6 6 6 6 8 8 8 5 . . 
+            . . . 5 8 8 8 8 8 8 8 8 5 5 . . 
+            . . . . 5 b b b 2 b 8 8 5 5 . . 
+            . . . . 5 b c c 2 1 8 8 5 5 . . 
+            . . . . 5 c c c c c c 8 8 . . . 
+            . . . . . 5 9 9 9 9 5 8 8 . . . 
+            . . . . . 5 8 b b 9 2 8 8 8 . . 
+            . . . . 9 8 8 8 8 9 2 2 8 8 8 . 
+            . . . . 9 9 8 8 8 8 9 9 8 8 8 . 
+            . . . . . f f f f f f . . 8 8 8 
+            `)
         SetPulling()
     } else if (playerStatus == PlayerStatus.Holding) {
         mySprite.setImage(img`
@@ -514,6 +542,12 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
             . . . . . f f f f f f . . 8 8 8 
             `)
     }
+})
+controller.right.onEvent(ControllerButtonEvent.Released, function () {
+    mySprite.vx = 0
+})
+controller.left.onEvent(ControllerButtonEvent.Released, function () {
+    mySprite.vx = 0
 })
 statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
     for (let index = 0; index < 6000; index++) {
@@ -1596,7 +1630,26 @@ sprites.destroy(otherSprite)
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     isRight = 1
+    mySprite.vx = 100
     if (playerStatus == PlayerStatus.Pulling) {
+        mySprite.setImage(img`
+            . . . . . . . 9 9 . . . . . . . 
+            . . . . . . . 9 8 9 . . . . . . 
+            . . . . 9 9 9 8 8 8 9 9 . . . . 
+            . . 9 9 6 9 8 8 8 8 9 9 9 9 . . 
+            . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
+            . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
+            . . 5 8 8 8 6 6 6 6 8 8 8 9 . . 
+            . . 5 5 8 8 8 8 8 8 8 8 5 . . . 
+            . . 5 5 8 8 b 2 b b b 5 . . . . 
+            . . 5 5 8 8 1 2 c c b 5 . . . . 
+            . . . 8 8 c c c c c c 5 . . . . 
+            . . . 8 8 5 9 9 9 9 5 . . . . . 
+            . . 8 8 8 2 9 b b 8 5 . . . . . 
+            . 8 8 8 2 2 9 8 8 8 8 9 . . . . 
+            . 8 8 8 9 9 8 8 8 8 9 9 . . . . 
+            8 8 8 . . f f f f f f . . . . . 
+            `)
         SetPulling()
     } else if (playerStatus == PlayerStatus.Holding) {
         mySprite.setImage(img`
@@ -1880,139 +1933,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.laser, function (sprite, otherSp
         }
     }
 })
-controller.combos.attachCombo("AB", function () {
-    if (isRight == -1) {
-        animation.runImageAnimation(
-        mySprite,
-        [img`
-            . . . . . . . 9 9 . . . . . . . 
-            . . . . . . 9 8 9 . . . . . . . 
-            . . . . 9 9 8 8 8 9 9 9 . . . . 
-            . . 9 9 9 9 8 8 8 8 9 6 9 9 . . 
-            . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
-            . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
-            . . 9 8 8 8 6 6 6 6 8 8 8 5 . . 
-            . . . 5 8 8 8 8 8 8 8 8 5 5 . . 
-            . . . . 5 b b b 2 b 8 8 5 5 . . 
-            . . . . 5 b c c 2 1 8 8 5 8 8 8 
-            . . . . 5 c c c c c c 8 8 8 8 . 
-            . . . . . 5 9 9 9 9 5 8 8 8 8 . 
-            . . . . . 5 8 b b 9 2 8 8 8 . . 
-            . . . . 9 8 8 8 8 9 2 2 8 . . . 
-            . . . . 9 9 8 8 8 8 9 9 . . . . 
-            . . . . . f f f f f f . . . . . 
-            `,img`
-            . . . . . . . 9 9 . . . . . . . 
-            . . . . . . 9 8 9 . . . . . . . 
-            . . . . 9 9 8 8 8 9 9 9 . . . . 
-            . . 9 9 9 9 8 8 8 8 9 6 9 9 . . 
-            . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
-            . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
-            . . 9 8 8 8 6 6 6 6 8 8 8 5 . . 
-            . . . 5 8 8 8 8 8 8 8 8 5 5 . . 
-            . . . . 5 b b b 2 b 8 8 5 5 . . 
-            . . . . 5 b c c 2 1 8 8 5 . . . 
-            . . . . 5 c c c c c c 8 8 8 8 8 
-            . . . . . 5 9 9 9 9 5 8 8 8 8 . 
-            . . . . . 5 8 b b 9 2 8 8 8 8 . 
-            . . . . 9 8 8 8 8 9 2 2 8 8 . . 
-            . . . . 9 9 8 8 8 8 9 9 . . . . 
-            . . . . . f f f f f f . . . . . 
-            `,img`
-            . . . . . . . 9 9 . . . . . . . 
-            . . . . . . 9 8 9 . . . . . . . 
-            . . . . 9 9 8 8 8 9 9 9 . . . . 
-            . . 9 9 9 9 8 8 8 8 9 6 9 9 . . 
-            . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
-            . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
-            . . 9 8 8 8 6 6 6 6 8 8 8 5 . . 
-            . . . 5 8 8 8 8 8 8 8 8 5 5 . . 
-            . . . . 5 b b b 2 b 8 8 5 5 . . 
-            . . . . 5 b c c 2 1 8 8 5 . . . 
-            . . . . 5 c c c c c c 8 8 . . . 
-            . . . . . 5 9 9 9 9 5 8 8 . . . 
-            . . . . . 5 8 b b 9 2 8 8 8 . . 
-            . . . . 9 8 8 8 8 9 2 2 8 8 8 . 
-            . . . . 9 9 8 8 8 8 9 9 8 8 8 . 
-            . . . . . f f f f f f . 8 8 8 8 
-            `],
-        100,
-        false
-        )
-        mySprite.startEffect(effects.fountain, 200)
-        mySprite.ay = 0
-        mySprite.setVelocity(-200, 0)
-        timer.after(500, function () {
-            mySprite.ay = 500
-            mySprite.setVelocity(0, 0)
-        })
-    } else {
-        animation.runImageAnimation(
-        mySprite,
-        [img`
-            . . . . . . . 9 9 . . . . . . . 
-            . . . . . . . 9 8 9 . . . . . . 
-            . . . . 9 9 9 8 8 8 9 9 . . . . 
-            . . 9 9 6 9 8 8 8 8 9 9 9 9 . . 
-            . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
-            . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
-            . . 5 8 8 8 6 6 6 6 8 8 8 9 . . 
-            . . 5 5 8 8 8 8 8 8 8 8 5 . . . 
-            . . 5 5 8 8 b 2 b b b 5 . . . . 
-            8 8 8 5 8 8 1 2 c c b 5 . . . . 
-            . 8 8 8 8 c c c c c c 5 . . . . 
-            . 8 8 8 8 5 9 9 9 9 5 . . . . . 
-            . . 8 8 8 2 9 b b 8 5 . . . . . 
-            . . . 8 2 2 9 8 8 8 8 9 . . . . 
-            . . . . 9 9 8 8 8 8 9 9 . . . . 
-            . . . . . f f f f f f . . . . . 
-            `,img`
-            . . . . . . . 9 9 . . . . . . . 
-            . . . . . . . 9 8 9 . . . . . . 
-            . . . . 9 9 9 8 8 8 9 9 . . . . 
-            . . 9 9 6 9 8 8 8 8 9 9 9 9 . . 
-            . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
-            . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
-            . . 5 8 8 8 6 6 6 6 8 8 8 9 . . 
-            . . 5 5 8 8 8 8 8 8 8 8 5 . . . 
-            . . 5 5 8 8 b 2 b b b 5 . . . . 
-            . . . 5 8 8 1 2 c c b 5 . . . . 
-            8 8 8 8 8 c c c c c c 5 . . . . 
-            . 8 8 8 8 5 9 9 9 9 5 . . . . . 
-            . 8 8 8 8 2 9 b b 8 5 . . . . . 
-            . . 8 8 2 2 9 8 8 8 8 9 . . . . 
-            . . . . 9 9 8 8 8 8 9 9 . . . . 
-            . . . . . f f f f f f . . . . . 
-            `,img`
-            . . . . . . . 9 9 . . . . . . . 
-            . . . . . . . 9 8 9 . . . . . . 
-            . . . . 9 9 9 8 8 8 9 9 . . . . 
-            . . 9 9 6 9 8 8 8 8 9 9 9 9 . . 
-            . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
-            . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
-            . . 5 8 8 8 6 6 6 6 8 8 8 9 . . 
-            . . 5 5 8 8 8 8 8 8 8 8 5 . . . 
-            . . 5 5 8 8 b 2 b b b 5 . . . . 
-            . . . 5 8 8 1 2 c c b 5 . . . . 
-            . . . 8 8 c c c c c c 5 . . . . 
-            . . 8 8 8 5 9 9 9 9 5 . . . . . 
-            . . 8 8 8 2 9 b b 8 5 . . . . . 
-            . 8 8 8 2 2 9 8 8 8 8 9 . . . . 
-            . 8 8 . 9 9 8 8 8 8 9 9 . . . . 
-            8 8 8 . . f f f f f f . . . . . 
-            `],
-        100,
-        false
-        )
-        mySprite.startEffect(effects.fountain, 200)
-        mySprite.ay = 0
-        mySprite.setVelocity(200, 0)
-        timer.after(500, function () {
-            mySprite.ay = 500
-            mySprite.setVelocity(0, 0)
-        })
-    }
-})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.enemybullet, function (sprite, otherSprite) {
     statusbar.value += -3
     sprites.destroy(otherSprite)
@@ -2255,6 +2175,178 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.enemybullet, function (sprite, o
         }
     }
 })
+function Dash () {
+    if (isRight == -1) {
+        animation.runImageAnimation(
+        mySprite,
+        [img`
+            ......99.........88888.8......
+            .....989........888998888.....
+            ...99888999.888888998888888...
+            .99998888969988888888.8.8888..
+            96686888868669888888........8.
+            9688668866886988888..........8
+            .9888666688858888888..........
+            ..588888888555229ffffff.......
+            ...5bbb2b88999998888899.......
+            ...5bcc2188999bbb8ffff........
+            ...5cccccc89998888999.........
+            ....55555555998889............
+            ...........555999.............
+            ..............................
+            ..............................
+            ..............................
+            `,img`
+            ..............................
+            ......99.........8............
+            .....989........8888888888....
+            ...99888999....888998888888888
+            .999988889699..8888888888888..
+            966868888686698888888.88......
+            9688668866886988888...........
+            .9888666688858888888..........
+            ..588888888555229ffffff.......
+            ...5bbb2b88999998888899.......
+            ...5bcc2188999bbb8ffff........
+            ...5cccccc89998888999.........
+            ....55555555998889............
+            ...........555999.............
+            ..............................
+            ..............................
+            `,img`
+            ..............................
+            .............................8
+            .......................8888.88
+            ......99.............888888888
+            .....989............98888888..
+            ...99888999.......998888888...
+            .999988889699..88888888.8.....
+            9668688886866988888888........
+            9688668866886988888...........
+            .9888666688858888888..........
+            ..588888888555229ffffff.......
+            ...5bbb2b88999998888899.......
+            ...5bcc2188999bbb8ffff........
+            ...5cccccc89998888999.........
+            ....55555555998889............
+            ...........555999.............
+            `],
+        100,
+        true
+        )
+        mySprite.startEffect(effects.fountain, 200)
+        mySprite.ay = 0
+        mySprite.setVelocity(-200, 0)
+        timer.after(500, function () {
+            mySprite.ay = 500
+            mySprite.setVelocity(0, 0)
+            animation.stopAnimation(animation.AnimationTypes.All, mySprite)
+            mySprite.setImage(img`
+                . . . . . . . 9 9 . . . . . . . 
+                . . . . . . 9 8 9 . . . . . . . 
+                . . . . 9 9 8 8 8 9 9 9 . . . . 
+                . . 9 9 9 9 8 8 8 8 9 6 9 9 . . 
+                . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
+                . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
+                . . 9 8 8 8 6 6 6 6 8 8 8 5 . . 
+                . . . 5 8 8 8 8 8 8 8 8 5 5 . . 
+                . . . . 5 b b b 2 b 8 8 5 5 . . 
+                . . . . 5 b c c 2 1 8 8 5 5 . . 
+                . . . . 5 c c c c c c 8 8 . . . 
+                . . . . . 5 9 9 9 9 5 8 8 . . . 
+                . . . . . 5 8 b b 9 2 8 8 8 . . 
+                . . . . 9 8 8 8 8 9 2 2 8 8 8 . 
+                . . . . 9 9 8 8 8 8 9 9 8 8 8 . 
+                . . . . . f f f f f f . . 8 8 8 
+                `)
+        })
+    } else {
+        mySprite.setVelocity(0, 0)
+        animation.runImageAnimation(
+        mySprite,
+        [img`
+            ......8.88888.........99......
+            .....888899888........989.....
+            ...888888899888888.99988899...
+            ..8888.8.88888888996988889999.
+            .8........88888896686888868669
+            8..........8888896886688668869
+            ..........8888888588866668889.
+            .......ffffff922555888888885..
+            .......99888889999988b2bbb5...
+            ........ffff8bbb9998812ccb5...
+            .........99988889998cccccc5...
+            ............98889955555555....
+            .............999555...........
+            ..............................
+            ..............................
+            ..............................
+            `,img`
+            ..............................
+            ............8.........99......
+            ....8888888888........989.....
+            888888888899888....99988899...
+            ..8888888888888..996988889999.
+            ......88.888888896686888868669
+            ...........8888896886688668869
+            ..........8888888588866668889.
+            .......ffffff922555888888885..
+            .......99888889999988b2bbb5...
+            ........ffff8bbb9998812ccb5...
+            .........99988889998cccccc5...
+            ............98889955555555....
+            .............999555...........
+            ..............................
+            ..............................
+            `,img`
+            ..............................
+            8.............................
+            88.8888.......................
+            888888888.............99......
+            ..88888889............989.....
+            ...888888899.......99988899...
+            .....8.88888888..996988889999.
+            ........8888888896686888868669
+            ...........8888896886688668869
+            ..........8888888588866668889.
+            .......ffffff922555888888885..
+            .......99888889999988b2bbb5...
+            ........ffff8bbb9998812ccb5...
+            .........99988889998cccccc5...
+            ............98889955555555....
+            .............999555...........
+            `],
+        100,
+        true
+        )
+        mySprite.startEffect(effects.fountain, 200)
+        mySprite.ay = 0
+        mySprite.setVelocity(200, 0)
+        timer.after(500, function () {
+            mySprite.ay = 500
+            mySprite.setVelocity(0, 0)
+            animation.stopAnimation(animation.AnimationTypes.All, mySprite)
+            mySprite.setImage(img`
+                . . . . . . . 9 9 . . . . . . . 
+                . . . . . . . 9 8 9 . . . . . . 
+                . . . . 9 9 9 8 8 8 9 9 . . . . 
+                . . 9 9 6 9 8 8 8 8 9 9 9 9 . . 
+                . 9 6 6 8 6 8 8 8 8 6 8 6 6 9 . 
+                . 9 6 8 8 6 6 8 8 6 6 8 8 6 9 . 
+                . . 5 8 8 8 6 6 6 6 8 8 8 9 . . 
+                . . 5 5 8 8 8 8 8 8 8 8 5 . . . 
+                . . 5 5 8 8 b 2 b b b 5 . . . . 
+                . . 5 5 8 8 1 2 c c b 5 . . . . 
+                . . . 8 8 c c c c c c 5 . . . . 
+                . . . 8 8 5 9 9 9 9 5 . . . . . 
+                . . 8 8 8 2 9 b b 8 5 . . . . . 
+                . 8 8 8 2 2 9 8 8 8 8 9 . . . . 
+                . 8 8 8 9 9 8 8 8 8 9 9 . . . . 
+                8 8 8 . . f f f f f f . . . . . 
+                `)
+        })
+    }
+}
 function HoldBoxCheck () {
     if (playerStatus == PlayerStatus.Pulling) {
         if (!(tiles.tileAtLocationEquals(currentSelectedBox, assets.tile`myTile0`))) {
@@ -2745,8 +2837,8 @@ if (isRight == 1) {
         )
     }
 }
-controller.combos.attachCombo("right", function () {
-	
+controller.left.onEvent(ControllerButtonEvent.Repeated, function () {
+    mySprite.vx = -1 * moveSpeed
 })
 let laser: Sprite = null
 let projectile2: Sprite = null
@@ -2762,6 +2854,7 @@ let ssiwoha: Sprite = null
 let statusbar: StatusBarSprite = null
 let mySprite: Sprite = null
 let pullEffect: Sprite = null
+let moveSpeed = 0
 let isDoubleJump = false
 let isRight = 0
 let currentSelectedBox: tiles.Location = null
@@ -2777,6 +2870,7 @@ selectedBox = tiles.getTileLocation(0, 0)
 currentSelectedBox = tiles.getTileLocation(1, 0)
 isRight = 1
 isDoubleJump = true
+moveSpeed = 100
 tiles.setCurrentTilemap(tilemap`level0`)
 pullEffect = sprites.create(img`
     . . . . . . . . . . . . . . . . 
@@ -2890,7 +2984,6 @@ statusbar.setLabel("HP", 1)
 statusbar.setBarBorder(1, 10)
 mySprite.ay = 500
 statusbar.positionDirection(CollisionDirection.Bottom)
-controller.moveSprite(mySprite, 100, 0)
 scene.cameraFollowSprite(mySprite)
 for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
     tiles.setWallAt(value, true)
@@ -2941,9 +3034,6 @@ game.onUpdate(function () {
     ssiwoha.setPosition(mySprite.x, mySprite.y)
     pullEffect.setPosition(mySprite.x, mySprite.y)
     mySprite4.setPosition(mySprite.x, mySprite.y)
-})
-forever(function () {
-	
 })
 game.onUpdateInterval(500, function () {
     for (let value3 of sprites.allOfKind(SpriteKind.Enemy)) {
