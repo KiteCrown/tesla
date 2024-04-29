@@ -1636,7 +1636,7 @@ sprites.onOverlap(SpriteKind.attack, SpriteKind.Enemy, function (sprite, otherSp
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `],
-    200,
+    100,
     false
     )
     death.setPosition(otherSprite.x, otherSprite.y)
@@ -1952,7 +1952,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.laser, function (sprite, otherSp
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.enemybullet, function (sprite, otherSprite) {
-    statusbar.value += -3
+    statusbar.value += -10
     sprites.destroy(otherSprite)
     scene.cameraShake(4, 500)
     if (playerStatus == PlayerStatus.Holding) {
@@ -2884,7 +2884,7 @@ enum PlayerStatus{
     Holding = 2
 }
 let playerStatus: PlayerStatus = PlayerStatus.Normal
-controller.combos.setTimeout(200)
+controller.combos.setTimeout(300)
 selectedBox = tiles.getTileLocation(0, 0)
 currentSelectedBox = tiles.getTileLocation(1, 0)
 isRight = 1
@@ -3054,7 +3054,7 @@ game.onUpdate(function () {
     pullEffect.setPosition(mySprite.x, mySprite.y)
     mySprite4.setPosition(mySprite.x, mySprite.y)
 })
-game.onUpdateInterval(500, function () {
+game.onUpdateInterval(1500, function () {
     for (let value3 of sprites.allOfKind(SpriteKind.Enemy)) {
         projectile = sprites.createProjectileFromSprite(img`
             . . . . . . . . . . . . . . . . 
