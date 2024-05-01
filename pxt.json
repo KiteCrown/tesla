@@ -9,7 +9,8 @@
         "arcade-character-animations": "github:microsoft/arcade-character-animations#v0.0.2",
         "pxt-button-combos": "github:jwunderl/pxt-button-combos#v0.0.24",
         "pxt-status-bar": "github:jwunderl/pxt-status-bar#v0.4.2",
-        "Makey Makey Keymappings": "github:joylabz/makeymakey-makecode-arcade-extension#1.0.3"
+        "Makey Makey Keymappings": "github:joylabz/makeymakey-makecode-arcade-extension#1.0.3",
+        "carnival": "github:microsoft/arcade-carnival#v0.0.7"
     },
     "files": [
         "main.blocks",
