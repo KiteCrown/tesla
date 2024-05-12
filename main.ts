@@ -10,6 +10,7 @@ namespace SpriteKind {
     export const boss = SpriteKind.create()
     export const laser = SpriteKind.create()
     export const spy = SpriteKind.create()
+    export const decoration = SpriteKind.create()
 }
 controller.combos.attachCombo("left left", function () {
     Dash()
@@ -164,7 +165,7 @@ scene.onOverlapTile(SpriteKind.Projectile, assets.tile`myTile`, function (sprite
     tiles.setTileAt(location, assets.tile`transparency16`)
 })
 sprites.onOverlap(SpriteKind.attack, SpriteKind.boss, function (sprite, otherSprite) {
-    statusbar2.value += -3
+    statusbar2.value += -19
     animation.runImageAnimation(
     otherSprite,
     [img`
@@ -272,6 +273,10 @@ pullEffect.setImage(img`
         `)
     animation.stopAnimation(animation.AnimationTypes.All, pullEffect)
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile13`, function (sprite, location) {
+    game.setGameOverMessage(true, "UP TO PARADISE")
+    game.gameOver(true)
+})
 sprites.onOverlap(SpriteKind.attack, SpriteKind.enemybullet, function (sprite, otherSprite) {
     otherSprite.vy = -600
     music.play(music.createSoundEffect(WaveShape.Sawtooth, 2020, 1995, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
@@ -1342,7 +1347,99 @@ statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
     false
     )
     timer.after(3000, function () {
-        game.gameOver(true)
+        boss2 = null
+        scene.cameraShake(4, 5000)
+        mySprite.sayText("Wha...what happened?!", 1000, true)
+        timer.after(5000, function () {
+            sprites.destroy(status)
+            sprites.destroy(mySprite)
+            mySprite5 = sprites.create(img`
+                .......22...............
+                ........22..............
+                ........222....2........
+                8.......222...2........8
+                888.....2222.22......888
+                88888..22222222....88888
+                8888888222222222.8888888
+                889888822222222288888988
+                889898222222222228898988
+                869898222255522229898968
+                .7689622255555222969867.
+                .7766722255555222.76677.
+                .7777.22255555222..7777.
+                ..7....222555222.....7..
+                ........2222222.........
+                .........22222..........
+                `, SpriteKind.Player)
+            scene.cameraFollowSprite(mySprite5)
+            controller.moveSprite(mySprite5)
+            color.startFade(color.White, color.originalPalette, 2000)
+            tiles.setCurrentTilemap(tilemap`level15`)
+            tiles.placeOnRandomTile(mySprite, assets.tile`myTile10`)
+            for (let value of tiles.getTilesByType(assets.tile`myTile12`)) {
+                mySprite2 = sprites.create(img`
+                    .......99...............
+                    ........99..............
+                    ........999....9........
+                    1.......999...9........1
+                    111.....9999.99......111
+                    11111..99999999....11111
+                    1111111999999999.1111111
+                    11d111199999999911111d11
+                    11d1d19999999999911d1d11
+                    1bd1d199991119999d1d1db1
+                    .cb1db99911111999dbd1bc.
+                    .ccbbc99911111999.cbbcc.
+                    .cccc.99911111999..cccc.
+                    ..c....999111999.....c..
+                    ........9999999.........
+                    .........99999..........
+                    `, SpriteKind.decoration)
+                tiles.placeOnTile(mySprite2, value)
+                animation.runImageAnimation(
+                mySprite2,
+                [img`
+                    .......99...............
+                    ........99..............
+                    ........999....9........
+                    1.......999...9........1
+                    111.....9999.99......111
+                    11111..99999999....11111
+                    1111111999999999.1111111
+                    11d111199999999911111d11
+                    11d1d19999999999911d1d11
+                    1bd1d199991119999d1d1db1
+                    .cb1db99911111999dbd1bc.
+                    .ccbbc99911111999.cbbcc.
+                    .cccc.99911111999..cccc.
+                    ..c....999111999.....c..
+                    ........9999999.........
+                    .........99999..........
+                    ........................
+                    `,img`
+                    ........................
+                    .......99...............
+                    ........99..............
+                    ........999....9........
+                    1.......999...9........1
+                    111.....9999.99......111
+                    11111..99999999....11111
+                    1111111999999999.1111111
+                    11d111199999999911111d11
+                    11d1d19999999999911d1d11
+                    1bd1d199991119999d1d1db1
+                    .cb1db99911111999dbd1bc.
+                    .ccbbc99911111999.cbbcc.
+                    .cccc.99911111999..cccc.
+                    ..c....999111999.....c..
+                    ........9999999.........
+                    .........99999..........
+                    `],
+                500,
+                true
+                )
+            }
+        })
     })
 })
 statusbars.onZero(StatusBarKind.Health, function (status) {
@@ -2892,6 +2989,8 @@ let projectile: Sprite = null
 let boxTrue = 0
 let death: Sprite = null
 let mySprite3: Sprite = null
+let mySprite2: Sprite = null
+let mySprite5: Sprite = null
 let boss2: Sprite = null
 let beat: Sprite = null
 let box2: Sprite = null
